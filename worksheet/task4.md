@@ -52,7 +52,7 @@ C4Container
     System_Ext(push, "Push notification service", "Delivers alerts to the owner's phone")
     System_Boundary(campuseats, "CampusEats") {
         Container(gateway, "API gateway", "Python, FastAPI", "Single entry point for clients")
-        Container(review, "Review service", "Python, FastAPI, small model as a library", "Stores reviews; local prediction cache; small model first (cascade, threshold 0.7); alerts only on a confident negative (>= 0.9) or when both models say negative; 1 s timeout -> pending")
+        Container(review, "Review service", "Python, FastAPI, small model as a library", "Stores reviews; local prediction cache; small model first (cascade, threshold 0.7); alerts only on a confident negative (at least 0.9) or when both models say negative; 1 s timeout falls back to pending")
         Container(inference, "Inference service", "Python, FastAPI, scikit-learn", "Large model behind a prediction cache; at most 20 calls/s")
         Container(batch, "Batch scorer", "Python, scheduled job", "Labels pending reviews with the large model off-peak")
     }
